@@ -56,6 +56,16 @@ def get(id):
         json_abort(500, error)
 
 
+def getAll():
+    try:
+        students = Student.query.all()
+        return students
+
+    except SQLAlchemyError as err:
+        db.session.rollback()
+        error = str(err.__dict__['orig'])
+        json_abort(500, error)
+
 def put(id, data):
     try:
 
