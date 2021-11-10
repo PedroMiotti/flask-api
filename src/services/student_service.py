@@ -1,4 +1,5 @@
 from src.models import db
+from src.models.course import Course
 from src.models.student import Student
 from src.config.restplus import json_abort
 from sqlalchemy.exc import SQLAlchemyError
@@ -43,7 +44,8 @@ def create(data):
 
 def get(id):
     try:
-        student = Student.query.filter_by(studentID=id).first()
+        student = Student.query.join(Course, Course.courseID == Student.courseID)\
+            .filter(Student.studentID == id).first()
 
         if not student:
             json_abort(400, "Student not found")

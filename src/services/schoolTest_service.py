@@ -4,6 +4,7 @@ from src.config.restplus import json_abort
 from sqlalchemy.exc import SQLAlchemyError
 import datetime
 
+from src.models.student import Student
 from src.services.student_service import get as get_student
 
 
@@ -44,7 +45,8 @@ def create(data):
 
 def get(id):
     try:
-        schoolTest = SchoolTest.query.filter_by(schoolTestID=id).first()
+        schoolTest = SchoolTest.query.join(Student, Student.studentID == SchoolTest.studentID) \
+            .filter(SchoolTest.schoolTestID == id).first()
 
         if not schoolTest:
             json_abort(400, "School Test not found")
