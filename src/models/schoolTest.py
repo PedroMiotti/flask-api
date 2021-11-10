@@ -6,7 +6,7 @@ class SchoolTest(db.Model):
 
     schoolTestID = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text())
-    studentID = db.Column(db.Integer, db.ForeignKey('student.studentID'))
+    studentID = db.Column(db.Integer, db.ForeignKey('student.studentID', ondelete='CASCADE'))
     student = db.relationship('Student')
     testGrade = db.Column(db.Float)
     concept = db.Column(db.Text())

@@ -59,7 +59,7 @@ def put(id, data):
         course = Course.query.filter_by(courseID=id).first()
 
         if not course:
-            json_abort(400, "Author not found")
+            json_abort(400, "Student not found")
         else:
             name = data.get('name')
             if not name:
